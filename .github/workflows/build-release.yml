@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -26,7 +26,7 @@ jobs:
         run: pyinstaller --onefile --windowed p5x-asset-tool.py
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: p5x-asset-tool-windows
           path: dist/p5x-asset-tool.exe
@@ -38,7 +38,7 @@ jobs:
       contents: write
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: p5x-asset-tool-windows
 
@@ -49,7 +49,7 @@ jobs:
           echo "commit_message=$(git log -1 --pretty=%B)" >> $GITHUB_OUTPUT
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.commit.outputs.sha_short }}
           body: ${{ steps.commit.outputs.commit_message }}
